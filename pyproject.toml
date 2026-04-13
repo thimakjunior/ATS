@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ats-simulator"
+version = "0.1.0"
+description = "Simulateur ATS pour analyser l'adéquation CV/offre"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["streamlit>=1.35"]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[project.scripts]
+ats-sim = "ats_simulator.cli:main"
