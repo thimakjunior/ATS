@@ -44,6 +44,7 @@ Un script `start.bat` est fourni pour tout faire automatiquement:
 Double-cliquez simplement sur `start.bat`.
 
 Note:
+- Le script détecte automatiquement `py` ou `python` pour créer le venv.
 - Le premier lancement installe les dépendances (téléchargements normaux).
 - Les lancements suivants réutilisent l'environnement et ne retéléchargent pas massivement.
 - Pour forcer une mise à jour: `start.bat --update`.

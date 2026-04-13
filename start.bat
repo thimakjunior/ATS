@@ -7,9 +7,25 @@ echo [ATS] Initialisation...
 set "FORCE_UPDATE=0"
 if /I "%~1"=="--update" set "FORCE_UPDATE=1"
 
-if not exist ".venv\Scripts\python.exe" (
+set "VENV_PY=.venv\Scripts\python.exe"
+
+if not exist "%VENV_PY%" (
   echo [ATS] Creation de l'environnement virtuel...
-  py -3 -m venv .venv
+
+  where py >nul 2>nul
+  if %errorlevel%==0 (
+    py -3 -m venv .venv
+  ) else (
+    where python >nul 2>nul
+    if %errorlevel%==0 (
+      python -m venv .venv
+    ) else (
+      echo [ERREUR] Python introuvable. Installez Python 3 puis relancez.
+      pause
+      exit /b 1
+    )
+  )
+
   if errorlevel 1 (
     echo [ERREUR] Impossible de creer le venv.
     pause
@@ -17,9 +33,8 @@ if not exist ".venv\Scripts\python.exe" (
   )
 )
 
-call ".venv\Scripts\activate.bat"
-if errorlevel 1 (
-  echo [ERREUR] Impossible d'activer le venv.
+if not exist "%VENV_PY%" (
+  echo [ERREUR] Python du venv introuvable: %VENV_PY%
   pause
   exit /b 1
 )
@@ -30,8 +45,8 @@ if "%FORCE_UPDATE%"=="1" (
 
 if not exist ".venv\.ats_ready" (
   echo [ATS] Premiere installation des dependances...
-  python -m pip install --upgrade pip
-  pip install -e .
+  "%VENV_PY%" -m pip install --upgrade pip
+  "%VENV_PY%" -m pip install -e .
   if errorlevel 1 (
     echo [ERREUR] Installation echouee.
     pause
@@ -41,8 +56,8 @@ if not exist ".venv\.ats_ready" (
 ) else (
   if "%FORCE_UPDATE%"=="1" (
     echo [ATS] Reinstallation/mise a jour des dependances...
-    python -m pip install --upgrade pip
-    pip install -e .
+    "%VENV_PY%" -m pip install --upgrade pip
+    "%VENV_PY%" -m pip install -e .
     if errorlevel 1 (
       echo [ERREUR] Mise a jour echouee.
       pause
@@ -56,6 +71,6 @@ if not exist ".venv\.ats_ready" (
 
 echo [ATS] Demarrage de l'application...
 echo [ATS] Ouvrez ce lien: http://localhost:8501
-streamlit run app.py
+"%VENV_PY%" -m streamlit run app.py
 
 endlocal
