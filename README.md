@@ -19,6 +19,13 @@ Simulateur d'ATS orienté recruteur pour évaluer la correspondance d'un CV avec
   - suggestions d'amélioration,
   - réécriture directe d'une version plus alignée du CV.
 
+## Formats de fichiers supportés
+
+- **PDF** (`.pdf`)
+- **Word** (`.docx`)
+- Texte et assimilés (`.txt`, `.md`, `.rtf`, `.csv`, `.json`, `.html`, `.htm`, `.xml`)
+- `.doc` et `.odt` affichent un message de conversion recommandée (vers `.docx` ou `.pdf`).
+
 ## Installation
 
 ```bash
@@ -91,8 +98,7 @@ python -m pytest
 
 ## Améliorations possibles
 
-- Support natif PDF/DOCX avec extraction de texte robuste.
 - Pondération par métier (Sales, Data, Product, etc.).
 - Module de scoring configurable par entreprise.
-- Interface web + historique d'analyses.
+- Historique d'analyses multi-offres.
 - Option de conformité (biais, neutralité, anonymisation).
